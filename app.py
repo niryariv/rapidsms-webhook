@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# vim: ai ts=4 sts=4 et sw=4
+
 import rapidsms
 import config
 
@@ -6,6 +9,7 @@ import urllib, urllib2
 
 class App (rapidsms.app.App):
     def _get_target_url(self, message):
+        ''' Determine the target URL according to the message text keywords, per config.target_urls'''
         urls = config.target_urls
         words = message.text.split()
         
@@ -20,7 +24,7 @@ class App (rapidsms.app.App):
             return urls[words[0]]
         
         
-    def handle (self, message):        
+    def handle (self, message):
         values = {
             'from' : message.connection.identity,
             'text' : message.text
