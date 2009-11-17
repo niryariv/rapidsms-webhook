@@ -1,0 +1,40 @@
+Thia app adds WebHook support to RapidSMS. 
+
+RapidSMS is a Django based open source SMS framework: http://rapidsms.org
+
+A WebHook is simply a URL that an application sends a POST request to whenever a certain event occurs (eg, GitHub WebHooks: http://help.github.com/post-receive-hooks/ )
+
+In this implementation, whenever RapidSMS receives an SMS message, it sends a POST request with the message content and phone ID to URLs defined in webhook/config.py. If the response body contains any text, it is SMSed back to the sending phone.
+
+INSTALL
+
+1. Add the webhook/ directory under the RapidSMS apps/ dir
+2. Add 'webhook' to local.ini 
+3. Set target_urls in webhook/config.py to the POST target, as explained below.
+
+
+CONFIGURE
+
+The target URLs are defined in a dictionary object in config.py. Each dictionary item contains a keyword and a matching URL. (The keyword is the first word in the SMS message). '*' is a default URL, to be used if no matching keyword was found.
+
+For example, this setting will match the keywords 'test' and 'another' to specific URLs:
+
+target_urls = {
+    'test'  : 'http://sometest.com/',
+    'another' : 'http://anothertest.com/',
+}
+
+While this setting uses only '*', so any message will be sent to the specified target URL:
+
+target_urls = {
+    '*'  : 'http://qkhack.appspot.com/rapid',
+}
+
+TEST
+
+You can use the target URL http://qkhack.appspot.com/rapid to test this app. This URL will return the message "hey '<phone>',
+you said '<message>'".
+
+CONTACT
+
+For any questions, comments, feedback please feel free to contact niryariv@gmail.com
