@@ -9,7 +9,7 @@ In this implementation, whenever RapidSMS receives an SMS message, it sends a PO
 INSTALL
 
 1. Add the webhook/ directory under the RapidSMS apps/ dir
-2. Add 'webhook' to local.ini 
+2. Add 'webhook' to local.ini apps
 3. Set target_urls in webhook/config.py to the POST target, as explained below.
 
 
